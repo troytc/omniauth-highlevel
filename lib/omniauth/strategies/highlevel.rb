@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-
 module OmniAuth
   module Strategies
     class Highlevel < OmniAuth::Strategies::OAuth2
