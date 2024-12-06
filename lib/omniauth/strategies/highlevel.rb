@@ -1,4 +1,5 @@
-require "omniauth/strategies/oauth2"
+# frozen_string_literal: true
+
 
 module OmniAuth
   module Strategies
