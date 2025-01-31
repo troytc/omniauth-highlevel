@@ -1,8 +1,7 @@
 PATH
   remote: .
   specs:
-    omniauth-highlevel (0.1.0)
-      omniauth (~> 2.0)
+    omniauth-highlevel (0.1.1)
       omniauth-oauth2 (~> 1.8)
 
 GEM

@@ -22,16 +22,34 @@ module OmniAuth
         method: :post
       }
 
-      option :token_params, {
-        user_type: options.user_type,
-        client_id: client.id,
-        client_secret: client.secret
-      }
+      uid { raw_info['user_id'] }
 
-      uid { access_token.params['locationId'] }
+      credentials do
+        hash = { 'token' => access_token.token }
+        hash['refresh_token'] = access_token.refresh_token if access_token.expires? && access_token.refresh_token
+        hash['expires_at'] = access_token.expires_at if access_token.expires?
+        hash['expires'] = access_token.expires?
+        hash['companyId'] = raw_info['companyId']
+        hash
+      end
+
+      info do
+        info = raw_info || {}
+        info = deep_symbolize(info)
+        info
+      end
 
       def raw_info
-        @raw_info ||= access_token.get('/api/v1/locations/me').parsed
+        @raw_info ||= access_token.params
+      end
+
+      def token_params
+        super.merge(
+          {
+            client_id: client.id,
+            client_secret: client.secret
+          }
+        )
       end
     end
   end
